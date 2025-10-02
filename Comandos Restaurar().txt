@@ -1,0 +1,30 @@
+Comando para hacer un backup en postgres(cambiar nombre de contenedor, nombre de base de datos y ruta):
+
+sudo docker exec -t postgres_bd pg_dump -U postgres -d clinica_postgres > /mnt/c/backups/clinica_postgres_backup.sql
+
+Comando para hacer la restauración de postgres(Ubuntu):
+Cambiar ruta (cat),nombre del contenedor, y que exista primero la base de datos:
+
+
+cat /mnt/c/backups/clinica_postgres_backup.sql | sudo docker exec -i postgres_bd psql -U postgres -d clinica_postgresrestaurar
+
+
+Comando para hacer backup en MySQL:
+
+sudo docker exec -t <nombre_contenedor_mysql> mysqldump -u <usuario> -p<password> <nombre_base_datos> > <ruta_en_host>/<archivo_backup>.sql
+
+Comando para restaurar:
+cat /mnt/c/backups/clinica_mysql_backup.sql | sudo docker exec -i mysql_server mysql -u root -pMiPassword clinica_mysql
+
+
+MS SQL SERVER
+
+Exportar base de datos (Ejecutar script en Dbeaver):
+
+BACKUP DATABASE (nombre de base de datos)
+TO DISK = N'/var/opt/mssql/backups/almacen_2025_iisem_node.bak' -> Cambiar esta ruta
+WITH FORMAT, INIT, NAME = 'Backup completo desde DBeaver';
+
+Importar base de datos (Ejecutar en la terminal Ubuntu):
+
+sudo docker exec -i sqlserver-container bash -lc "/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P 'Sala8101' -C -d master -Q \"ALTER DATABASE [nombre_de_la_bd] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; RESTORE DATABASE [nombre_de_la_bd] FROM DISK=N'/var/opt/mssql/backups/nombre_del_archivo.bak' WITH REPLACE, RECOVERY, STATS=10; ALTER DATABASE [nombre_de_la_bd] SET MULTI_USER;\""
