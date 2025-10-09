@@ -1,0 +1,240 @@
+;;; 
+Import: Release 21.0.0.0.0 - Production on Thu Oct 9 03:48:48 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle and/or its affiliates.  All rights reserved.
+;;; 
+Connected to: Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Master table "SYSTEM"."SYS_IMPORT_SCHEMA_01" successfully loaded/unloaded
+Starting "SYSTEM"."SYS_IMPORT_SCHEMA_01":  system/******** DIRECTORY=BACKUP_DIR DUMPFILE=clinica_oracle_backup.dmp LOGFILE=clinica_oracle_restore.log SCHEMAS=CLINICA_ORACLE 
+Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA
+ORA-39083: Object type PROCACT_SCHEMA failed to create with error:
+ORA-31625: Schema CLINICA_ORACLE is needed to import this object, but is unaccessible
+ORA-01435: user does not exist
+
+Failing sql is:
+BEGIN 
+sys.dbms_logrep_imp.instantiate_schema(schema_name=>SYS_CONTEXT('USERENV','CURRENT_SCHEMA'), export_db_name=>'XEPDB1', inst_scn=>'13180132');COMMIT; END; 
+Processing object type SCHEMA_EXPORT/SEQUENCE/SEQUENCE
+ORA-39083: Object type SEQUENCE:"CLINICA_ORACLE"."DOCTORS_SEQ" failed to create with error:
+ORA-01917: user or role '' does not exist
+
+Failing sql is:
+ CREATE SEQUENCE  "CLINICA_ORACLE"."DOCTORS_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE  NOKEEP  NOSCALE  GLOBAL 
+Processing object type SCHEMA_EXPORT/TABLE/TABLE
+ORA-39083: Object type TABLE:"CLINICA_ORACLE"."DOCTORS" failed to create with error:
+ORA-01918: user 'CLINICA_ORACLE' does not exist
+
+Failing sql is:
+CREATE TABLE "CLINICA_ORACLE"."DOCTORS" ("ID" NUMBER NOT NULL ENABLE, "NAME" CHAR(50 BYTE) NOT NULL ENABLE, "TELEPHONE" CHAR(20 BYTE) NOT NULL ENABLE, "EMAIL" CHAR(100 BYTE) NOT NULL ENABLE, "SPECIALTY_ID" NUMBER, "LAST_NAME" VARCHAR2(50 BYTE)) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255  NOCOMPRESS LOGGING STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) TABLESPACE "USERS" 
+ORA-39083: Object type TABLE:"CLINICA_ORACLE"."MEDICINES" failed to create with error:
+ORA-01918: user 'CLINICA_ORACLE' does not exist
+
+Failing sql is:
+CREATE TABLE "CLINICA_ORACLE"."MEDICINES" ("ID" NUMBER NOT NULL ENABLE, "NAME" CHAR(80 BYTE) NOT NULL ENABLE, "PRESENTATION" CHAR(50 BYTE) NOT NULL ENABLE, "DOSE" CHAR(50 BYTE) NOT NULL ENABLE) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255  NOCOMPRESS LOGGING STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) TABLESPACE "USERS" 
+ORA-39083: Object type TABLE:"CLINICA_ORACLE"."SPECIALTIES" failed to create with error:
+ORA-01918: user 'CLINICA_ORACLE' does not exist
+
+Failing sql is:
+CREATE TABLE "CLINICA_ORACLE"."SPECIALTIES" ("ID" NUMBER NOT NULL ENABLE, "NAME_SPECIALTY" CHAR(50 BYTE) NOT NULL ENABLE) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255  NOCOMPRESS LOGGING STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) TABLESPACE "USERS" 
+ORA-39083: Object type TABLE:"CLINICA_ORACLE"."APPOINTMENTS" failed to create with error:
+ORA-01918: user 'CLINICA_ORACLE' does not exist
+
+Failing sql is:
+CREATE TABLE "CLINICA_ORACLE"."APPOINTMENTS" ("ID" NUMBER NOT NULL ENABLE, "APPOINTMENT_DATE" DATE NOT NULL ENABLE, "REASON" CHAR(200 BYTE) NOT NULL ENABLE, "PATIENT_ID" NUMBER, "DOCTOR_ID" NUMBER) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255  NOCOMPRESS LOGGING STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) TABLESPACE "USERS" 
+ORA-39083: Object type TABLE:"CLINICA_ORACLE"."PRESCRIPTIONS" failed to create with error:
+ORA-01918: user 'CLINICA_ORACLE' does not exist
+
+Failing sql is:
+CREATE TABLE "CLINICA_ORACLE"."PRESCRIPTIONS" ("ID" NUMBER NOT NULL ENABLE, "PRESCRIPTION_DATE" DATE NOT NULL ENABLE, "APPOINTMENT_ID" NUMBER) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255  NOCOMPRESS LOGGING STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) TABLESPACE "USERS" 
+ORA-39083: Object type TABLE:"CLINICA_ORACLE"."PAYMENTS" failed to create with error:
+ORA-01918: user 'CLINICA_ORACLE' does not exist
+
+Failing sql is:
+CREATE TABLE "CLINICA_ORACLE"."PAYMENTS" ("ID" NUMBER NOT NULL ENABLE, "PAYMENT_DATE" DATE NOT NULL ENABLE, "AMOUNT" NUMBER(10,2) NOT NULL ENABLE, "APPOINTMENT_ID" NUMBER) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255  NOCOMPRESS LOGGING STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) TABLESPACE "USERS" 
+ORA-39083: Object type TABLE:"CLINICA_ORACLE"."DIAGNOSES" failed to create with error:
+ORA-01918: user 'CLINICA_ORACLE' does not exist
+
+Failing sql is:
+CREATE TABLE "CLINICA_ORACLE"."DIAGNOSES" ("ID" NUMBER NOT NULL ENABLE, "DESCRIPTION" CHAR(200 BYTE) NOT NULL ENABLE, "PATIENT_ID" NUMBER, "APPOINTMENT_ID" NUMBER) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255  NOCOMPRESS LOGGING STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) TABLESPACE "USERS" 
+ORA-39083: Object type TABLE:"CLINICA_ORACLE"."PROCEDURES" failed to create with error:
+ORA-01918: user 'CLINICA_ORACLE' does not exist
+
+Failing sql is:
+CREATE TABLE "CLINICA_ORACLE"."PROCEDURES" ("ID" NUMBER NOT NULL ENABLE, "DESCRIPTION" CHAR(200 BYTE) NOT NULL ENABLE, "APPOINTMENT_ID" NUMBER) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255  NOCOMPRESS LOGGING STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) TABLESPACE "USERS" 
+ORA-39083: Object type TABLE:"CLINICA_ORACLE"."RECIPE_DETAILS" failed to create with error:
+ORA-01918: user 'CLINICA_ORACLE' does not exist
+
+Failing sql is:
+CREATE TABLE "CLINICA_ORACLE"."RECIPE_DETAILS" ("ID" NUMBER NOT NULL ENABLE, "AMOUNT" NUMBER NOT NULL ENABLE, "INDICATIONS" CHAR(200 BYTE) NOT NULL ENABLE, "PRESCRIPTION_ID" NUMBER, "MEDICINE_ID" NUMBER) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255  NOCOMPRESS LOGGING STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) TABLESPACE "USERS" 
+ORA-39083: Object type TABLE:"CLINICA_ORACLE"."PATIENTS" failed to create with error:
+ORA-01918: user 'CLINICA_ORACLE' does not exist
+
+Failing sql is:
+CREATE TABLE "CLINICA_ORACLE"."PATIENTS" ("ID" NUMBER NOT NULL ENABLE, "NAME" CHAR(50 BYTE) NOT NULL ENABLE, "LAST_NAME" CHAR(80 BYTE) NOT NULL ENABLE, "BIRTH_DATE" DATE, "GENDER" CHAR(50 BYTE) NOT NULL ENABLE, "ADDRESS" CHAR(40 BYTE) NOT NULL ENABLE, "TELEPHONE" CHAR(20 BYTE) NOT NULL ENABLE, "AGE" NUMBER(*,0)) PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255  NOCOMPRESS LOGGING STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645 PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT) TABLESPACE "USERS" 
+Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA
+Processing object type SCHEMA_EXPORT/PROCEDURE/PROCEDURE
+ORA-39083: Object type PROCEDURE failed to create with error:
+ORA-31625: Schema CLINICA_ORACLE is needed to import this object, but is unaccessible
+ORA-01435: user does not exist
+
+Failing sql is:
+CREATE EDITIONABLE PROCEDURE                PAGOSFECHA_BETWEEN(
+    fecha_i IN DATE,
+    fecha_f IN DATE
+)
+IS
+BEGIN
+  FOR rec IN (
+    SELECT pay.id,
+           pay.payment_date,
+           pay.amount,
+           p.name AS patients,
+           d.name AS doctors,
+           s.name_specialty
+    FROM payments pay
+    JOIN appointments a ON pay.appointment_id = a.id
+    JOIN patients p ON a.patient_id = p.id
+    JOIN doctors d ON a.doctor_id = d.id
+    JOIN specialties s ON d.specialty_id = s.id
+    WHERE pay.payment_date BETWEEN fecha_i AND fecha_f
+  ) LOOP
+    DBMS_OUTPUT.PUT_LINE('Payments: ' || rec.id ||
+                         ' - Patients: ' || rec.patients ||
+                         ' - Doctors: ' || rec.doctors ||
+                         ' - Specialties: ' || rec.name_specialty ||
+                         ' - Amounts: ' || rec.amount||
+                         ' - Date: ' || TO_CHAR(rec.payment_date, 'DD/MM/YYYY'));
+  END LOOP;
+END;
+ORA-39083: Object type PROCEDURE failed to create with error:
+ORA-31625: Schema CLINICA_ORACLE is needed to import this object, but is unaccessible
+ORA-01435: user does not exist
+
+Failing sql is:
+CREATE EDITIONABLE PROCEDURE                BUSCARPACIENTE_IGUAL(
+    p_id_paciente IN NUMBER
+)
+IS
+BEGIN
+  FOR rec IN (
+    SELECT p.name, p.last_name, a.appointment_date, d.name AS doctors, s.name_specialty
+    FROM patients p
+    JOIN appointments a ON p.id = a.patient_id
+    JOIN doctors d ON a.doctor_id = d.id
+    JOIN specialties s ON d.specialty_id = s.id
+    WHERE p.id = p_id_paciente
+  ) LOOP
+    DBMS_OUTPUT.PUT_LINE('Patients: ' || rec.name || ' ' || rec.last_name ||
+                         ' - Appointments: ' || TO_CHAR(rec.appointment_date, 'DD/MM/YYYY') ||
+                         ' - Doctors: ' || rec.doctors || ' - Specialties: ' || rec.name_specialty);
+  END LOOP;
+END;
+ORA-39083: Object type PROCEDURE failed to create with error:
+ORA-31625: Schema CLINICA_ORACLE is needed to import this object, but is unaccessible
+ORA-01435: user does not exist
+
+Failing sql is:
+CREATE EDITIONABLE PROCEDURE BUSCARDOCTORES_LIKE(
+    patron IN char
+)
+IS
+BEGIN
+  FOR rec IN (
+    SELECT d.id, d.name, d.last_name, s.name_specialty
+    FROM doctors d
+    JOIN specialties s ON d.specialty_id = s.id
+    WHERE d.name LIKE '%' || patron || '%'
+  ) LOOP
+    DBMS_OUTPUT.PUT_LINE('Doctors: ' || rec.name || ' ' || rec.last_name ||
+                         ' - Specialties: ' || rec.name_specialty);
+  END LOOP;
+END;
+ORA-39083: Object type PROCEDURE failed to create with error:
+ORA-31625: Schema CLINICA_ORACLE is needed to import this object, but is unaccessible
+ORA-01435: user does not exist
+
+Failing sql is:
+CREATE EDITIONABLE PROCEDURE CITASPACIENTEPORESPECIALIDAD_WHERE(
+
+p_specialtyid IN NUMBER
+)
+IS
+BEGIN
+  FOR rec IN (
+    SELECT p.id, p.name, p.last_name, s.name_specialty
+    FROM patients p, appointments a, doctors d, specialties s
+    WHERE p.id = a.patient_id
+      AND a.doctor_id = d.id
+      AND d.specialty_id = s.id
+      AND s.id = p_specialtyid
+  ) LOOP
+    DBMS_OUTPUT.PUT_LINE('patients: ' || rec.name || ' ' || rec.last_name ||
+                         ' - specialties: ' || rec.name_specialty);
+  END LOOP;
+END;
+ORA-39083: Object type PROCEDURE failed to create with error:
+ORA-31625: Schema CLINICA_ORACLE is needed to import this object, but is unaccessible
+ORA-01435: user does not exist
+
+Failing sql is:
+CREATE EDITIONABLE PROCEDURE CITASDOCTOR_JOIN(
+    p_id_doctor IN NUMBER
+)
+IS
+BEGIN
+  FOR rec IN (
+    SELECT a.id, p.name AS patients, p.last_name, d.name AS doctors, s.name_specialty
+    FROM appointments a
+     JOIN patients p ON a.patient_id = p.id
+    JOIN doctors d ON a.doctor_id = d.id
+    JOIN specialties s ON d.specialty_id = s.id
+    WHERE d.id = p_id_doctor
+  ) LOOP
+    DBMS_OUTPUT.PUT_LINE('Appointments: ' || rec.id || ' - Patients: ' || rec.patients ||
+                         ' - Doctors: ' || rec.doctors || ' - Specialties: ' || rec.name_specialty);
+  END LOOP;
+END;
+Processing object type SCHEMA_EXPORT/PROCEDURE/ALTER_PROCEDURE
+ORA-39112: Dependent object type ALTER_PROCEDURE:"CLINICA_ORACLE"."PAGOSFECHA_BETWEEN" skipped, base object type PROCEDURE:"CLINICA_ORACLE"."PAGOSFECHA_BETWEEN" creation failed
+ORA-39112: Dependent object type ALTER_PROCEDURE:"CLINICA_ORACLE"."BUSCARPACIENTE_IGUAL" skipped, base object type PROCEDURE:"CLINICA_ORACLE"."BUSCARPACIENTE_IGUAL" creation failed
+ORA-39112: Dependent object type ALTER_PROCEDURE:"CLINICA_ORACLE"."BUSCARDOCTORES_LIKE" skipped, base object type PROCEDURE:"CLINICA_ORACLE"."BUSCARDOCTORES_LIKE" creation failed
+ORA-39112: Dependent object type ALTER_PROCEDURE:"CLINICA_ORACLE"."CITASPACIENTEPORESPECIALIDAD_WHERE" skipped, base object type PROCEDURE:"CLINICA_ORACLE"."CITASPACIENTEPORESPECIALIDAD_WHERE" creation failed
+ORA-39112: Dependent object type ALTER_PROCEDURE:"CLINICA_ORACLE"."CITASDOCTOR_JOIN" skipped, base object type PROCEDURE:"CLINICA_ORACLE"."CITASDOCTOR_JOIN" creation failed
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/INDEX
+ORA-39112: Dependent object type INDEX:"CLINICA_ORACLE"."DOCTORS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."DOCTORS" creation failed
+ORA-39112: Dependent object type INDEX:"CLINICA_ORACLE"."MEDICINES_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."MEDICINES" creation failed
+ORA-39112: Dependent object type INDEX:"CLINICA_ORACLE"."SPECIALTIES_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."SPECIALTIES" creation failed
+ORA-39112: Dependent object type INDEX:"CLINICA_ORACLE"."APPOINTMENTS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."APPOINTMENTS" creation failed
+ORA-39112: Dependent object type INDEX:"CLINICA_ORACLE"."PRESCRIPTIONS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."PRESCRIPTIONS" creation failed
+ORA-39112: Dependent object type INDEX:"CLINICA_ORACLE"."PAYMENTS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."PAYMENTS" creation failed
+ORA-39112: Dependent object type INDEX:"CLINICA_ORACLE"."TABLE1_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."DIAGNOSES" creation failed
+ORA-39112: Dependent object type INDEX:"CLINICA_ORACLE"."PROCEDURES_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."PROCEDURES" creation failed
+ORA-39112: Dependent object type INDEX:"CLINICA_ORACLE"."RECIPE_DETAILS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."RECIPE_DETAILS" creation failed
+ORA-39112: Dependent object type INDEX:"CLINICA_ORACLE"."PATIENTS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."PATIENTS" creation failed
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
+ORA-39112: Dependent object type CONSTRAINT:"CLINICA_ORACLE"."DOCTORS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."DOCTORS" creation failed
+ORA-39112: Dependent object type CONSTRAINT:"CLINICA_ORACLE"."MEDICINES_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."MEDICINES" creation failed
+ORA-39112: Dependent object type CONSTRAINT:"CLINICA_ORACLE"."SPECIALTIES_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."SPECIALTIES" creation failed
+ORA-39112: Dependent object type CONSTRAINT:"CLINICA_ORACLE"."APPOINTMENTS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."APPOINTMENTS" creation failed
+ORA-39112: Dependent object type CONSTRAINT:"CLINICA_ORACLE"."PRESCRIPTIONS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."PRESCRIPTIONS" creation failed
+ORA-39112: Dependent object type CONSTRAINT:"CLINICA_ORACLE"."PAYMENTS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."PAYMENTS" creation failed
+ORA-39112: Dependent object type CONSTRAINT:"CLINICA_ORACLE"."TABLE1_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."DIAGNOSES" creation failed
+ORA-39112: Dependent object type CONSTRAINT:"CLINICA_ORACLE"."PROCEDURES_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."PROCEDURES" creation failed
+ORA-39112: Dependent object type CONSTRAINT:"CLINICA_ORACLE"."RECIPE_DETAILS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."RECIPE_DETAILS" creation failed
+ORA-39112: Dependent object type CONSTRAINT:"CLINICA_ORACLE"."PATIENTS_PK" skipped, base object type TABLE:"CLINICA_ORACLE"."PATIENTS" creation failed
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/REF_CONSTRAINT
+ORA-39112: Dependent object type REF_CONSTRAINT:"CLINICA_ORACLE"."FK_SPECIALTY_DOCTORS" skipped, base object type TABLE:"CLINICA_ORACLE"."DOCTORS" creation failed
+ORA-39112: Dependent object type REF_CONSTRAINT:"CLINICA_ORACLE"."FK_APPOINTMENT_PATIENT" skipped, base object type TABLE:"CLINICA_ORACLE"."APPOINTMENTS" creation failed
+ORA-39112: Dependent object type REF_CONSTRAINT:"CLINICA_ORACLE"."FK_APPOINTMENT_DOCTOR" skipped, base object type TABLE:"CLINICA_ORACLE"."APPOINTMENTS" creation failed
+ORA-39112: Dependent object type REF_CONSTRAINT:"CLINICA_ORACLE"."FK_PRESCRIPTIONS_APPOINTMENTS" skipped, base object type TABLE:"CLINICA_ORACLE"."PRESCRIPTIONS" creation failed
+ORA-39112: Dependent object type REF_CONSTRAINT:"CLINICA_ORACLE"."FK_PAYMENTS_APPOINTMENTS" skipped, base object type TABLE:"CLINICA_ORACLE"."PAYMENTS" creation failed
+ORA-39112: Dependent object type REF_CONSTRAINT:"CLINICA_ORACLE"."FK_DIAGNOSIS_APPOINTMENT" skipped, base object type TABLE:"CLINICA_ORACLE"."DIAGNOSES" creation failed
+ORA-39112: Dependent object type REF_CONSTRAINT:"CLINICA_ORACLE"."FK_DIAGNOSIS_PATIENT" skipped, base object type TABLE:"CLINICA_ORACLE"."DIAGNOSES" creation failed
+ORA-39112: Dependent object type REF_CONSTRAINT:"CLINICA_ORACLE"."FK_PROCEDURES_APPOINTMENTS" skipped, base object type TABLE:"CLINICA_ORACLE"."PROCEDURES" creation failed
+ORA-39112: Dependent object type REF_CONSTRAINT:"CLINICA_ORACLE"."FK_RECIPE_DETAILS_MEDICINES" skipped, base object type TABLE:"CLINICA_ORACLE"."RECIPE_DETAILS" creation failed
+ORA-39112: Dependent object type REF_CONSTRAINT:"CLINICA_ORACLE"."FK_RECIPE_DETAILS_PRESCRIPTIONS" skipped, base object type TABLE:"CLINICA_ORACLE"."RECIPE_DETAILS" creation failed
+Processing object type SCHEMA_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
+Processing object type SCHEMA_EXPORT/STATISTICS/MARKER
+Job "SYSTEM"."SYS_IMPORT_SCHEMA_01" completed with 52 error(s) at Thu Oct 9 03:48:58 2025 elapsed 0 00:00:02

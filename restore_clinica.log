@@ -1,0 +1,32 @@
+;;; 
+Import: Release 21.0.0.0.0 - Production on Thu Oct 9 03:57:54 2025
+Version 21.3.0.0.0
+
+Copyright (c) 1982, 2021, Oracle and/or its affiliates.  All rights reserved.
+;;; 
+Connected to: Oracle Database 21c Express Edition Release 21.0.0.0.0 - Production
+Master table "SYSTEM"."SYS_IMPORT_FULL_01" successfully loaded/unloaded
+Starting "SYSTEM"."SYS_IMPORT_FULL_01":  system/********@localhost/XEPDB1 DIRECTORY=BACKUP_DIR DUMPFILE=clinica_oracle_backup.dmp REMAP_SCHEMA=clinica_oracle:clinica_restore LOGFILE=restore_clinica.log 
+Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA
+Processing object type SCHEMA_EXPORT/SEQUENCE/SEQUENCE
+Processing object type SCHEMA_EXPORT/TABLE/TABLE
+Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA
+. . imported "CLINICA_RESTORE"."PATIENTS"                33.71 KB     100 rows
+. . imported "CLINICA_RESTORE"."APPOINTMENTS"            28.43 KB     100 rows
+. . imported "CLINICA_RESTORE"."RECIPE_DETAILS"          27.95 KB     100 rows
+. . imported "CLINICA_RESTORE"."DIAGNOSES"               27.23 KB     100 rows
+. . imported "CLINICA_RESTORE"."PROCEDURES"              26.52 KB     100 rows
+. . imported "CLINICA_RESTORE"."DOCTORS"                 25.87 KB     100 rows
+. . imported "CLINICA_RESTORE"."MEDICINES"               24.88 KB     100 rows
+. . imported "CLINICA_RESTORE"."SPECIALTIES"             11.15 KB     100 rows
+. . imported "CLINICA_RESTORE"."PRESCRIPTIONS"           7.671 KB     100 rows
+. . imported "CLINICA_RESTORE"."PAYMENTS"                8.718 KB     100 rows
+Processing object type SCHEMA_EXPORT/PROCEDURE/PROCEDURE
+Processing object type SCHEMA_EXPORT/PROCEDURE/ALTER_PROCEDURE
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/INDEX
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/REF_CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
+Processing object type SCHEMA_EXPORT/STATISTICS/MARKER
+Job "SYSTEM"."SYS_IMPORT_FULL_01" successfully completed at Thu Oct 9 03:58:05 2025 elapsed 0 00:00:10
