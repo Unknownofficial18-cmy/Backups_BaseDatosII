@@ -1,16 +1,18 @@
 Comando para hacer un backup en postgres(cambiar nombre de contenedor, nombre de base de datos y ruta):
 
-sudo docker exec -t postgres_bd pg_dump -U postgres -d clinica_postgres \
+sudo docker exec -t postgres_bd pg_dump -U postgres -d clinica_postgresrestaurar \
 --format=plain \
 --no-owner \
---schema=public \
 --blobs \
---routines \
---file=/mnt/c/backups/clinica_postgres_full_backup.sql
+--file=/tmp/clinica_pg_full_backup.sql
+
+copiar el archivo : 
+
+sudo docker cp postgres_bd:/tmp/clinica_pg_full_backup.sql /mnt/c/backups/
 
 
 Comando para hacer la restauración de postgres(Ubuntu):
-Cambiar ruta (cat),nombre del contenedor, y que exista primero la base de datos:
+Cambiar ruta ,nombre del contenedor, y que exista primero la base de datos:
 
 
 sudo docker exec -i postgres_bd psql -U postgres -d clinica_postgres_restore < /mnt/c/backups/clinica_postgres_full_backup.sql
@@ -40,3 +42,58 @@ WITH FORMAT, INIT, NAME = 'Backup completo desde DBeaver';
 Importar base de datos (Ejecutar en la terminal Ubuntu):
 
 sudo docker exec -i sqlserver-container bash -lc "/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P 'Sala8101' -C -d master -Q \"ALTER DATABASE [nombre_de_la_bd] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; RESTORE DATABASE [nombre_de_la_bd] FROM DISK=N'/var/opt/mssql/backups/nombre_del_archivo.bak' WITH REPLACE, RECOVERY, STATS=10; ALTER DATABASE [nombre_de_la_bd] SET MULTI_USER;\""
+
+
+Hacer Backup: Oracle
+
+1: sudo docker exec -it oracle-xe bash
+
+2: sqlplus system/tu_contraseña@localhost/XEPDB1
+
+3:CREATE OR REPLACE DIRECTORY BACKUP_DIR AS '/opt/oracle/backups';
+GRANT READ, WRITE ON DIRECTORY BACKUP_DIR TO clinica_oracle;
+
+4: salir con exit
+
+5: expdp clinica_oracle/12345@localhost/XEPDB1 DIRECTORY=BACKUP_DIR DUMPFILE=clinica_backup.dmp LOGFILE=clinica_backup.log FULL=Y
+
+6: sudo docker cp oracle-xe:/opt/oracle/backups/clinica_backup.dmp /mnt/c/backups/
+sudo docker cp oracle-xe:/opt/oracle/backups/clinica_backup.log /mnt/c/backups/
+
+
+
+Restaurar Oracle:
+
+1. sudo docker cp /mnt/c/backups/clinica_backup.dmp oracle-xe:/opt/oracle/backups/ Cambiar ruta de archivos.
+
+2. sudo docker exec -it oracle-xe bash
+
+3.CREATE USER clinica_restore IDENTIFIED BY 12345;
+GRANT CONNECT, RESOURCE, CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, CREATE TRIGGER, CREATE PROCEDURE TO clinica_restore;
+ALTER USER clinica_restore QUOTA UNLIMITED ON USERS;
+
+exit
+
+impdp system/tu_contraseña@localhost/XEPDB1 DIRECTORY=BACKUP_DIR DUMPFILE=clinica_backup.dmp REMAP_SCHEMA=clinica_oracle:clinica_restore LOGFILE=restore_clinica.log
+
+forma 2: 
+
+1: entrar al contenedor : sudo docker exec -it oracle-xe bash
+
+2: dentro del contenedor de Oracle , ejecutar : sqlplus system/tu_contraseña@localhost/XEPDB1
+
+3: cuando salga el SQL:
+
+CREATE USER clinica_oracle IDENTIFIED BY 12345;
+
+GRANT CONNECT, RESOURCE, CREATE SESSION, CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, CREATE TRIGGER, CREATE PROCEDURE TO clinica_oracle;
+
+ALTER USER clinica_oracle QUOTA UNLIMITED ON USERS;
+
+4: salir con exit
+
+5: ejecutar esto en Ubuntu : cat /mnt/c/backups/restauraroracle.sql | sudo docker exec -i oracle-xe bash -c "sqlplus clinica_oracle/12345@localhost/XEPDB1"
+
+
+
+
