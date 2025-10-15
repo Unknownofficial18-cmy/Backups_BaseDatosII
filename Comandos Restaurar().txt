@@ -4,18 +4,18 @@ sudo docker exec -t postgres_bd pg_dump -U postgres -d clinica_postgresrestaurar
 --format=plain \
 --no-owner \
 --blobs \
---file=/tmp/clinica_pg_full_backup.sql
+--file=/tmp/clinica_pg_full2_backup.sql
 
 copiar el archivo : 
 
-sudo docker cp postgres_bd:/tmp/clinica_pg_full_backup.sql /mnt/c/backups/
+sudo docker cp postgres_bd:/tmp/clinica_pg_full2_backup.sql /mnt/c/backups/
 
 
 Comando para hacer la restauración de postgres(Ubuntu):
 Cambiar ruta ,nombre del contenedor, y que exista primero la base de datos:
 
 
-sudo docker exec -i postgres_bd psql -U postgres -d clinica_postgres_restore < /mnt/c/backups/clinica_postgres_full_backup.sql
+sudo docker exec -i postgres_bd psql -U postgres -d clinica_postgres_restore < /mnt/c/backups/clinica_pg_full_backup.sql
 
 
 Comando para hacer backup en MySQL:
@@ -24,7 +24,7 @@ sudo docker exec mysql_bd mysqldump -u admin -p12345 \
 --routines \
 --triggers \
 --events \
---databases clinica_mysql > /mnt/c/backups/clinicamysql_full_backup.sql
+--databases clinica_mysql > /mnt/c/backups/clinicamysql_full2_backup.sql
 
 
 Comando para restaurar:
@@ -33,16 +33,18 @@ sudo docker exec -i mysql_bd mysql -u admin -p12345 < /mnt/c/backups/clinicamysq
 
 MS SQL SERVER
 
-Exportar base de datos (Ejecutar script en Dbeaver):
+Exportar base de datos (Dbeaver):
 
-BACKUP DATABASE (nombre de base de datos)
-TO DISK = N'/var/opt/mssql/backups/almacen_2025_iisem_node.bak' -> Cambiar esta ruta
-WITH FORMAT, INIT, NAME = 'Backup completo desde DBeaver';
+BACKUP DATABASE [clinicasqlserver]
+TO DISK = N'/var/opt/mssql/backup/restaurar_clinicasqlserver2.bak'
+WITH FORMAT, INIT, NAME = 'Backup completo';
+
+sudo docker cp sqlserver-container:/var/opt/mssql/backup/restaurar_clinicasqlserver2.bak /mnt/c/backups/
+
 
 Importar base de datos (Ejecutar en la terminal Ubuntu):
 
-sudo docker exec -i sqlserver-container bash -lc "/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P 'Sala8101' -C -d master -Q \"ALTER DATABASE [nombre_de_la_bd] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; RESTORE DATABASE [nombre_de_la_bd] FROM DISK=N'/var/opt/mssql/backups/nombre_del_archivo.bak' WITH REPLACE, RECOVERY, STATS=10; ALTER DATABASE [nombre_de_la_bd] SET MULTI_USER;\""
-
+sudo docker exec -i sqlserver-container bash -lc "/opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P 'Imperiovol19*' -C -d master -Q \"ALTER DATABASE [clinicasqlserver] SET SINGLE_USER WITH ROLLBACK IMMEDIATE; RESTORE DATABASE [clinicasqlserver] FROM DISK=N'/var/opt/mssql/backups/clinicasqlserverrestore.bak' WITH REPLACE, RECOVERY, STATS=10; ALTER DATABASE [clinicasqlserver] SET MULTI_USER;\""
 
 Hacer Backup: Oracle
 
@@ -55,16 +57,16 @@ GRANT READ, WRITE ON DIRECTORY BACKUP_DIR TO clinica_oracle;
 
 4: salir con exit
 
-5: expdp clinica_oracle/12345@localhost/XEPDB1 DIRECTORY=BACKUP_DIR DUMPFILE=clinica_backup.dmp LOGFILE=clinica_backup.log FULL=Y
+5: expdp clinica_oracle/12345@localhost/XEPDB1 DIRECTORY=BACKUP_DIR DUMPFILE=clinica_oracle_backup.dmp LOGFILE=clinica_oracle_backup.log SCHEMAS=CLINICA_ORACLE
 
-6: sudo docker cp oracle-xe:/opt/oracle/backups/clinica_backup.dmp /mnt/c/backups/
-sudo docker cp oracle-xe:/opt/oracle/backups/clinica_backup.log /mnt/c/backups/
+6: sudo docker cp oracle-xe:/opt/oracle/backups/clinica_oracle_backup.dmp /mnt/c/backups/
+sudo docker cp oracle-xe:/opt/oracle/backups/clinica_oracle_backup.log /mnt/c/backups/
 
 
 
 Restaurar Oracle:
 
-1. sudo docker cp /mnt/c/backups/clinica_backup.dmp oracle-xe:/opt/oracle/backups/ Cambiar ruta de archivos.
+1. sudo docker cp /mnt/c/backups/clinica_oracle_backup.dmp oracle-xe:/opt/oracle/backups/ Cambiar ruta de archivos.
 
 2. sudo docker exec -it oracle-xe bash
 
@@ -74,7 +76,7 @@ ALTER USER clinica_restore QUOTA UNLIMITED ON USERS;
 
 exit
 
-impdp system/tu_contraseña@localhost/XEPDB1 DIRECTORY=BACKUP_DIR DUMPFILE=clinica_backup.dmp REMAP_SCHEMA=clinica_oracle:clinica_restore LOGFILE=restore_clinica.log
+impdp system/12345@localhost/XEPDB1 DIRECTORY=BACKUP_DIR DUMPFILE=clinica_oracle_backup.dmp REMAP_SCHEMA=clinica_oracle:clinica_restore LOGFILE=restore_clinica.log
 
 forma 2: 
 
